@@ -18,15 +18,28 @@ class GUI:
         self.main_frame = Frame(self.root, background="skyblue")
         self.main_frame.place(height=height, width=width)
 
-        self.names_component = NamesComponent(
-            self.main_frame, dist_x=50, dist_y=30, height=120, width=200
-        )
+        self.eokul_component = EOkulComponent(self.main_frame)
+
+        self.names_component = NamesComponent(self.main_frame)
 
     def run(self):
         # TODO seperate to a component
         # TODO add check buttons for different file formats (if possible)
-        eokul_frame = Frame(self.main_frame, background="skyblue")
-        eokul_frame.place(x=50, y=150, height=150, width=200)
+
+        button = Button(self.main_frame, text="Oluştur", command=self.create_files)
+        button.place(x=55, y=280, height=25, width=195)
+
+        self.root.mainloop()
+
+    def create_files(self):
+        data = self.eokul_component.get_data()
+        self.dt.insert_data(data)
+
+
+class EOkulComponent:
+    def __init__(self, root, x=50, y=150, height1=150, height2=30, width=200):
+        eokul_frame = Frame(root, background="skyblue")
+        eokul_frame.place(x=x, y=y, height=height1, width=width)
 
         eokul_label = Label(
             eokul_frame,
@@ -35,11 +48,11 @@ class GUI:
             anchor="w",
             padx=5,
             pady=5,
-            wraplength=200,
+            wraplength=width,
             justify="left",
             bg="skyblue",
         )
-        eokul_label.place(x=0, y=0, height=50, width=200)
+        eokul_label.place(x=0, y=0, height=height2 * 2, width=width)
 
         eokul_desc_label = Label(
             eokul_frame,
@@ -47,27 +60,21 @@ class GUI:
             font="arial 8",
             anchor="w",
             padx=5,
-            wraplength=200,
+            wraplength=width,
             justify="left",
             bg="skyblue",
         )
-        eokul_desc_label.place(x=0, y=50, height=30, width=200)
+        eokul_desc_label.place(x=0, y=height2 * 2, height=height2, width=width)
 
-        eokul_veri = Entry(eokul_frame)
-        eokul_veri.place(x=5, y=80, height=30, width=200)
+        self.eokul_veri = Entry(eokul_frame)
+        self.eokul_veri.place(x=5, y=height2 * 3, height=height2, width=width)
 
-        button = Button(self.main_frame, text="Oluştur", command=self.create_files)
-        button.place(x=55, y=280, height=25, width=195)
-
-        self.root.mainloop()
-
-    def create_files(self):
-        pass
-        # self.dt.insert_data(data)
+    def get_data(self):
+        return self.eokul_veri.get()
 
 
 class NamesComponent:
-    def __init__(self, root, dist_x, dist_y, height, width):
+    def __init__(self, root, dist_x=50, dist_y=30, height=120, width=200):
         self.text_frame = Frame(root, background="skyblue")
         self.text_frame.place(x=dist_x, y=dist_y, height=height, width=width)
 
@@ -76,7 +83,7 @@ class NamesComponent:
         self.ogretmen_tf = TextField(self.text_frame, text="Öğretmen Adı", y=dist_y * 2)
         self.sube_tf = TextField(self.text_frame, text="Şube", y=dist_y * 3)
 
-    def get_names(self):
+    def get_data(self):
         return [self.get_okul(), self.get_mudur(), self.get_ogretmen(), self.get_sube()]
 
     def get_okul(self):
