@@ -71,9 +71,10 @@ class NamesComponent:
         self.okul_tf = TextField(self.text_frame, text="Okul Adı", y=dist_y * 0)
         self.mudur_tf = TextField(self.text_frame, text="Müdür Adı", y=dist_y * 1)
         self.ogretmen_tf = TextField(self.text_frame, text="Öğretmen Adı", y=dist_y * 2)
+        self.sube_tf = TextField(self.text_frame, text="Şube", y=dist_y * 3)
 
     def get_names(self):
-        return self.get_okul(), self.get_mudur(), self.get_ogretmen()
+        return self.get_okul(), self.get_mudur(), self.get_ogretmen(), self.get_sube()
 
     def get_okul(self):
         return self.okul_tf.get()
@@ -83,6 +84,9 @@ class NamesComponent:
 
     def get_ogretmen(self):
         return self.ogretmen_tf.get()
+
+    def get_sube(self):
+        return self.sube_tf.get()
 
 
 class TextField(Frame):
