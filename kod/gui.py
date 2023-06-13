@@ -6,7 +6,6 @@ class GUI:
     # TODO add openpyxl and excel funtionality
     # TODO add if possible pdf output
     # TODO add destination dropdown list
-    # TODO add helper class for functionality (maybe)
     def __init__(self, size="300x500", height=500, width=300):
         self.root = Tk()
         self.root.title("E-Okul Not Dağılımı")
