@@ -54,7 +54,7 @@ class GUI:
         eokul_veri.place(x=5, y=80, height=30, width=200)
 
         button = Button(self.main_frame, text="Oluştur", command=self.create_files)
-        button.place(x=50, y=300, height=30, width=60)
+        button.place(x=55, y=250, height=25, width=195)
 
         self.root.mainloop()
 
