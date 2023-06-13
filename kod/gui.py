@@ -19,14 +19,14 @@ class GUI:
         self.main_frame.place(height=height, width=width)
 
         self.names_component = NamesComponent(
-            self.main_frame, dist_x=50, dist_y=30, height=200, width=200
+            self.main_frame, dist_x=50, dist_y=30, height=120, width=200
         )
 
     def run(self):
         # TODO seperate to a component
         # TODO add check buttons for different file formats (if possible)
         eokul_frame = Frame(self.main_frame, background="skyblue")
-        eokul_frame.place(x=50, y=120, height=150, width=200)
+        eokul_frame.place(x=50, y=150, height=150, width=200)
 
         eokul_label = Label(
             eokul_frame,
@@ -57,13 +57,13 @@ class GUI:
         eokul_veri.place(x=5, y=80, height=30, width=200)
 
         button = Button(self.main_frame, text="Oluştur", command=self.create_files)
-        button.place(x=55, y=250, height=25, width=195)
+        button.place(x=55, y=280, height=25, width=195)
 
         self.root.mainloop()
 
     def create_files(self):
-        # TODO missing functionality
-        print(self.names_component.get_names())
+        pass
+        # self.dt.insert_data(data)
 
 
 class NamesComponent:
@@ -77,7 +77,7 @@ class NamesComponent:
         self.sube_tf = TextField(self.text_frame, text="Şube", y=dist_y * 3)
 
     def get_names(self):
-        return self.get_okul(), self.get_mudur(), self.get_ogretmen(), self.get_sube()
+        return [self.get_okul(), self.get_mudur(), self.get_ogretmen(), self.get_sube()]
 
     def get_okul(self):
         return self.okul_tf.get()
