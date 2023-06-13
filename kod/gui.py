@@ -13,10 +13,6 @@ class GUI:
         self.root.geometry(size)
         self.root.resizable(False, False)
 
-        self.dt = DataTable(
-            "./veri/proje_kriterler.txt", "./veri/dersici_kriterler.txt"
-        )
-
         self.main_frame = Frame(self.root, background="skyblue")
         self.main_frame.place(height=height, width=width)
 
@@ -25,7 +21,6 @@ class GUI:
         self.names_component = NamesComponent(self.main_frame)
 
     def run(self):
-        # TODO seperate to a component
         # TODO add check buttons for different file formats (if possible)
 
         button = Button(self.main_frame, text="Oluştur", command=self.create_files)
@@ -35,7 +30,8 @@ class GUI:
 
     def create_files(self):
         data = self.eokul_component.get_data()
-        self.dt.insert_data(data)
+        self.dt = DataTable(data)
+        self.dt.fill_sub_df("1.Proje", "./veri/proje_kriterler.txt")
 
 
 class EOkulComponent:

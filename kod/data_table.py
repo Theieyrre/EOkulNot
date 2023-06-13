@@ -3,11 +3,8 @@ from io import StringIO
 
 
 class DataTable:
-    def __init__(self, proje_columns_file, dersici_columns_file):
-        self.proje_df = create_sub_df(proje_columns_file)
-        self.dersici_df = create_sub_df(dersici_columns_file)
-
-        self.columns = [
+    def __init__(self, data):
+        self.eokul_columns = [
             "Okul No",
             "Adı Soyadı",
             "1.Sınav",
@@ -22,16 +19,21 @@ class DataTable:
             "Not Bilgisi Düğme",
         ]
 
-    def insert_data(self, data):
+        self.columns = ["Okul No", "Adı Soyadı"]
+
         data_io = StringIO(data)
         self.main_df = pd.read_csv(data_io, sep="\t", header=None)
-        self.main_df.columns = self.columns
-        print(self.main_df.head(5))
+        self.main_df.columns = self.eokul_columns
 
+    def fill_sub_df(self, main_column, filename):
+        # TODO join two dataframe and fill criterias
+        columns = self.columns.copy()
+        columns.append(main_column)
+        temp_df = self.main_df[columns]
 
-def create_sub_df(filename) -> pd.DataFrame:
-    columns = []
-    with open(filename, "r", encoding="utf-8") as f:
-        for line in f:
-            columns.append(line.replace("\n", ""))
-    return pd.DataFrame(columns=columns)
+        with open(filename, "r", encoding="utf-8") as f:
+            for line in f:
+                columns.append(line.replace("\n", ""))
+        sub_df = pd.DataFrame(columns=columns)
+
+        sub_df = sub_df.join(temp_df.set_index("Okul No"), on=self.columns)
