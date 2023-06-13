@@ -1,4 +1,5 @@
 from tkinter import *
+from data_table import DataTable
 
 
 class GUI:
@@ -11,6 +12,8 @@ class GUI:
         self.root.title("E-Okul Not Dağılımı")
         self.root.geometry(size)
         self.root.resizable(False, False)
+
+        self.dt = DataTable()
 
         self.main_frame = Frame(self.root, background="skyblue")
         self.main_frame.place(height=height, width=width)
