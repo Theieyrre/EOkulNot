@@ -13,7 +13,9 @@ class GUI:
         self.root.geometry(size)
         self.root.resizable(False, False)
 
-        self.dt = DataTable()
+        self.dt = DataTable(
+            "./veri/proje_kriterler.txt", "./veri/dersici_kriterler.txt"
+        )
 
         self.main_frame = Frame(self.root, background="skyblue")
         self.main_frame.place(height=height, width=width)
