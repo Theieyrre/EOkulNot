@@ -14,4 +14,3 @@ Tabloyu ilgili alana yapıştırıp oluştur tuşuna basınız
 
 ![uygulama resmi](./imgs/pic1.PNG)
 
-## HENÜZ EKSİ
