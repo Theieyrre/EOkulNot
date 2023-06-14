@@ -26,14 +26,19 @@ class DataTable:
         self.main_df.columns = self.eokul_columns
 
     def fill_sub_df(self, main_column, filename):
-        # TODO join two dataframe and fill criterias
+        # TODO spread remainder value to columns
         columns = self.columns.copy()
         columns.append(main_column)
         temp_df = self.main_df[columns]
 
+        grade_columns = []
         with open(filename, "r", encoding="utf-8") as f:
             for line in f:
-                columns.append(line.replace("\n", ""))
-        sub_df = pd.DataFrame(columns=columns)
+                grade_columns.append(line.replace("\n", ""))
 
-        sub_df = sub_df.join(temp_df.set_index("Okul No"), on=self.columns)
+        temp_df = temp_df.reindex(columns=temp_df.columns.tolist() + grade_columns)
+
+        for column in grade_columns:
+            temp_df[column] = temp_df[main_column] // len(grade_columns)
+
+        print(temp_df.head(5))
