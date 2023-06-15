@@ -48,11 +48,15 @@ class DataTable:
         for index, row in temp_df[temp_df[main_column] > 0].iterrows():
             g_columns = grade_columns.copy()
             for i in range(int(row["Kalan Not"])):
-                idx = random.randint(3, len(g_columns) + 3)
-                temp_df.iloc[index, idx] = int(temp_df.iloc[index, idx]) + 1
-                g_columns.remove(g_columns[idx - 4])
+                idx = random.randint(0, len(g_columns) - 1)
+                update_column = g_columns[idx]
+                temp_df.loc[index, update_column] = (
+                    int(temp_df.loc[index, update_column]) + 1
+                )
+                g_columns.remove(g_columns[idx])
 
         temp_df = temp_df.drop(columns=["Kalan Not"])
+        temp_df = temp_df.set_index("Okul No")
         return temp_df
 
     def write_excel(self, df, filename):
