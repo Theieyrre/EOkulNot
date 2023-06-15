@@ -3,7 +3,6 @@ from data_table import DataTable
 
 
 class GUI:
-    # TODO add openpyxl and excel funtionality
     # TODO add if possible pdf output
     # TODO add destination dropdown list
     def __init__(self, size="300x500", height=500, width=300):
@@ -30,7 +29,16 @@ class GUI:
     def create_files(self):
         data = self.eokul_component.get_data()
         self.dt = DataTable(data)
-        self.dt.fill_sub_df("1.Proje", "./veri/proje_kriterler.txt")
+        temp = self.dt.fill_sub_df("1.Proje", "./veri/proje_kriterler.txt")
+        self.dt.write_excel(temp, "1.Proje.xlsx")
+        temp = self.dt.fill_sub_df("1.Ders Et.Kat", "./veri/dersici_kriterler.txt")
+        self.dt.write_excel(temp, "1.Ders Et.Kat.xlsx")
+        temp = self.dt.fill_sub_df("2.Ders Et.Kat", "./veri/dersici_kriterler.txt")
+        self.dt.write_excel(temp, "2.Ders Et.Kat.xlsx")
+        temp = self.dt.fill_sub_df("3.Ders Et.Kat", "./veri/dersici_kriterler.txt")
+        self.dt.write_excel(temp, "3.Ders Et.Kat.xlsx")
+
+        exit()
 
 
 class EOkulComponent:
