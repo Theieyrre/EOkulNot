@@ -1,5 +1,6 @@
 from tkinter import *
 from data_table import DataTable
+from workbook import ExcelWriter
 
 
 class GUI:
@@ -22,7 +23,7 @@ class GUI:
         # TODO add check buttons for different file formats (if possible)
 
         button = Button(self.main_frame, text="Oluştur", command=self.create_files)
-        button.place(x=55, y=340, height=25, width=195)
+        button.place(x=55, y=370, height=25, width=195)
 
         self.root.mainloop()
 
@@ -30,6 +31,8 @@ class GUI:
         data = self.eokul_component.get_data()
         self.dt = DataTable(data)
         temp = self.dt.fill_sub_df("1.Proje", "./veri/proje_kriterler.txt")
+        ew = ExcelWriter(temp)
+        ew.save()
         self.dt.write_excel(temp, "1.Proje.xlsx")
         temp = self.dt.fill_sub_df("1.Ders Et.Kat", "./veri/dersici_kriterler.txt")
         self.dt.write_excel(temp, "1.Ders Et.Kat.xlsx")
@@ -42,7 +45,7 @@ class GUI:
 
 
 class EOkulComponent:
-    def __init__(self, root, x=50, y=210, height1=150, height2=30, width=200):
+    def __init__(self, root, x=50, y=240, height1=150, height2=30, width=200):
         eokul_frame = Frame(root, background="skyblue")
         eokul_frame.place(x=x, y=y, height=height1, width=width)
 
@@ -79,7 +82,7 @@ class EOkulComponent:
 
 
 class NamesComponent:
-    def __init__(self, root, dist_x=50, dist_y=30, height=180, width=200):
+    def __init__(self, root, dist_x=50, dist_y=30, height=210, width=200):
         self.text_frame = Frame(root, background="skyblue")
         self.text_frame.place(x=dist_x, y=dist_y, height=height, width=width)
 
@@ -87,8 +90,9 @@ class NamesComponent:
         self.mudur_tf = TextField(self.text_frame, text="Müdür Adı", y=dist_y * 1)
         self.ogretmen_tf = TextField(self.text_frame, text="Öğretmen Adı", y=dist_y * 2)
         self.sube_tf = TextField(self.text_frame, text="Şube", y=dist_y * 3)
-        self.yil_tf = TextField(self.text_frame, text="Eğitim Yılı", y=dist_y * 4)
-        self.donem_tf = TextField(self.text_frame, text="Dönem", y=dist_y * 5)
+        self.ders_tf = TextField(self.text_frame, text="Ders", y=dist_y * 4)
+        self.yil_tf = TextField(self.text_frame, text="Eğitim Yılı", y=dist_y * 5)
+        self.donem_tf = TextField(self.text_frame, text="Dönem", y=dist_y * 6)
 
     def get_data(self):
         return [
@@ -96,6 +100,7 @@ class NamesComponent:
             self.get_mudur(),
             self.get_ogretmen(),
             self.get_sube(),
+            self.get_ders(),
             self.get_donem(),
             self.get_yil(),
         ]
@@ -111,6 +116,9 @@ class NamesComponent:
 
     def get_sube(self):
         return self.sube_tf.get()
+
+    def get_ders(self):
+        return self.ders_tf.get()
 
     def get_donem(self):
         return self.donem_tf.get()
