@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from data_table import DataTable
 from workbook import ExcelWriter
+import os
 
 
 class App:
@@ -33,26 +34,23 @@ class App:
         self.dt = DataTable(data)
         proje_columns = self.read_criterias("./veri/proje_kriterler.txt")
         dersici_columns = self.read_criterias("./veri/dersici_kriterler.txt")
-        temp = self.dt.fill_sub_df("1.Proje", proje_columns)
-        ew = ExcelWriter(proje_columns)
-        ew.add_dataframe(temp)
-        ew.save("1.Proje.xlsx")
-        # self.dt.write_excel(temp, "1.Proje.xlsx")
-        temp = self.dt.fill_sub_df("1.Ders Et.Kat", dersici_columns)
-        ew = ExcelWriter(dersici_columns)
-        ew.add_dataframe(temp)
-        ew.save("1.Proje.xlsx")
-        # self.dt.write_excel(temp, "1.Ders Et.Kat.xlsx")
-        temp = self.dt.fill_sub_df("2.Ders Et.Kat", dersici_columns)
-        ew.add_dataframe(temp)
-        ew.save("1.Proje.xlsx")
-        # self.dt.write_excel(temp, "2.Ders Et.Kat.xlsx")
-        temp = self.dt.fill_sub_df("3.Ders Et.Kat", dersici_columns)
-        ew.add_dataframe(temp)
-        ew.save("1.Proje.xlsx")
-        # self.dt.write_excel(temp, "3.Ders Et.Kat.xlsx")
 
-        messagebox.showinfo("E-Okul Not Dağılımı", "Dosyalar başarıyla oluşturuldu")
+        self.create_file("1.Proje", proje_columns, "1.Proje.xlsx")
+        self.create_file("1.Ders Et. Kat", dersici_columns, "1. Ders Et.Kat.xlsx")
+        self.create_file("2.Ders Et. Kat", dersici_columns, "2. Ders Et.Kat.xlsx")
+        self.create_file("3.Ders Et. Kat", dersici_columns, "3. Ders Et.Kat.xlsx")
+
+        messagebox.showinfo(
+            "E-Okul Not Dağılımı", "Dosyalar başarıyla Masaüstünde oluşturuldu"
+        )
+
+    def create_file(self, col, columns, filename):
+        desktop = os.path.expanduser("~/Desktop")
+        filename = os.path.join(desktop, filename)
+        temp = self.dt.fill_sub_df(col, columns)
+        ew = ExcelWriter(columns)
+        ew.add_dataframe(temp)
+        ew.save(filename)
 
     def read_criterias(self, filename) -> list:
         grade_columns = []
