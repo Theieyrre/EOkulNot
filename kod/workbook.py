@@ -4,7 +4,9 @@ import pandas as pd
 
 
 class ExcelWriter:
-    def __init__(self, columns):
+    # TODO add borders
+    # TODO add grade specific columns
+    def __init__(self, col, columns, metadata):
         self.wb = Workbook()
         self.ws = self.wb.active
 
@@ -26,18 +28,24 @@ class ExcelWriter:
         self.ws.merge_cells(start_row=5, start_column=2, end_row=5, end_column=3)
 
         # Kriter label
-        self.ws.merge_cells(start_row=3, start_column=4, end_row=3, end_column=size + 2)
+        self.ws.merge_cells(start_row=3, start_column=4, end_row=4, end_column=size + 3)
 
         # Kriter
-        self.ws.merge_cells(start_row=4, start_column=4, end_row=4, end_column=size + 2)
         self.ws.merge_cells(start_row=6, start_column=1, end_row=14, end_column=1)
         for i in range(size):
             self.ws.merge_cells(
                 start_row=5, start_column=4 + i, end_row=15, end_column=4 + i
             )
+            self.ws.cell(5, 4 + i).alignment = Alignment(
+                text_rotation=90, vertical="center", horizontal="center"
+            )
 
         self.ws.merge_cells(
-            start_row=3, start_column=size + 3, end_row=15, end_column=size + 3
+            start_row=3, start_column=size + 4, end_row=15, end_column=size + 4
+        )
+
+        self.ws.cell(3, size + 4).alignment = Alignment(
+            text_rotation=90, vertical="center", horizontal="center"
         )
 
         self.ws["A3"] = "SINIF"
@@ -61,10 +69,11 @@ class ExcelWriter:
         self.ws["A1"].alignment = Alignment(horizontal="center")
         self.ws["A2"].alignment = Alignment(horizontal="center")
 
-        self.ws["A3"].alignment = Alignment(text_rotation=90, vertical="center")
-        self.ws["A6"].alignment = Alignment(text_rotation=90, vertical="center")
-        self.ws.cell(3, size + 3).alignment = Alignment(
-            text_rotation=90, vertical="center"
+        self.ws["A3"].alignment = Alignment(
+            text_rotation=90, vertical="center", horizontal="center"
+        )
+        self.ws["A6"].alignment = Alignment(
+            text_rotation=90, vertical="center", horizontal="center"
         )
 
         self.ws["D3"].alignment = Alignment(horizontal="center")
@@ -72,6 +81,19 @@ class ExcelWriter:
 
         self.ws["B4"].alignment = Alignment(horizontal="center")
         self.ws["B5"].alignment = Alignment(horizontal="center")
+
+        self.ws["A1"] = metadata[5] + " EĞİTİM ÖĞRETİM YILI " + metadata[0]
+        self.ws["A2"] = (
+            metadata[4]
+            + " DERSİ "
+            + metadata[6]
+            + " "
+            + col.upper()
+            + " NOTU DEĞERLENDİRME ÖLÇEĞİ"
+        )
+        self.ws["B3"] = metadata[3]
+
+        self.ws.cell(3, size + 4).value = col.upper() + " PUANI"
 
     def add_dataframe(self, df):
         # TODO add rows from df

@@ -49,7 +49,7 @@ class App:
         desktop = os.path.expanduser("~/Desktop")
         filename = os.path.join(desktop, filename)
         temp = self.dt.fill_sub_df(col, columns)
-        ew = ExcelWriter(columns)
+        ew = ExcelWriter(col, columns, self.names)
         ew.add_dataframe(temp)
         ew.save(filename)
 
