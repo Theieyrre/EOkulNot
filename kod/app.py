@@ -1,13 +1,15 @@
 from tkinter import *
+from tkinter import messagebox
 from data_table import DataTable
 from workbook import ExcelWriter
 
 
-class GUI:
+class App:
     # TODO add if possible pdf output
     # TODO add destination dropdown list
     def __init__(self, size="300x500", height=500, width=300):
         self.root = Tk()
+        self.root.eval("tk::PlaceWindow . center")
         self.root.title("E-Okul Not Dağılımı")
         self.root.geometry(size)
         self.root.resizable(False, False)
@@ -19,12 +21,11 @@ class GUI:
 
         self.names_component = NamesComponent(self.main_frame)
 
-    def run(self):
-        # TODO add check buttons for different file formats (if possible)
-
         button = Button(self.main_frame, text="Oluştur", command=self.create_files)
         button.place(x=55, y=370, height=25, width=195)
 
+    def run(self):
+        # TODO add check buttons for different file formats (if possible)
         self.root.mainloop()
 
     def create_files(self):
@@ -51,7 +52,7 @@ class GUI:
         ew.save("1.Proje.xlsx")
         # self.dt.write_excel(temp, "3.Ders Et.Kat.xlsx")
 
-        exit()
+        messagebox.showinfo("E-Okul Not Dağılımı", "Dosyalar başarıyla oluşturuldu")
 
     def read_criterias(self, filename) -> list:
         grade_columns = []

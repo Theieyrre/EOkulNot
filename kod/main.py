@@ -1,9 +1,12 @@
-from gui import GUI
+from app import App
 
 
 def main():
-    frame = GUI()
-    frame.run()
+    frame = App()
+    try:
+        frame.run()
+    except Exception as e:
+        print(e)
 
 
 if __name__ == "__main__":
