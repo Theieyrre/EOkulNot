@@ -30,15 +30,16 @@ class App:
         self.root.mainloop()
 
     def create_files(self):
+        self.names = self.names_component.get_data()
         data = self.eokul_component.get_data()
         self.dt = DataTable(data)
         proje_columns = self.read_criterias("./veri/proje_kriterler.txt")
         dersici_columns = self.read_criterias("./veri/dersici_kriterler.txt")
 
         self.create_file("1.Proje", proje_columns, "1.Proje.xlsx")
-        self.create_file("1.Ders Et. Kat", dersici_columns, "1. Ders Et.Kat.xlsx")
-        self.create_file("2.Ders Et. Kat", dersici_columns, "2. Ders Et.Kat.xlsx")
-        self.create_file("3.Ders Et. Kat", dersici_columns, "3. Ders Et.Kat.xlsx")
+        self.create_file("1.Ders Et.Kat", dersici_columns, "1. Ders Et.Kat.xlsx")
+        self.create_file("2.Ders Et.Kat", dersici_columns, "2. Ders Et.Kat.xlsx")
+        self.create_file("3.Ders Et.Kat", dersici_columns, "3. Ders Et.Kat.xlsx")
 
         messagebox.showinfo(
             "E-Okul Not Dağılımı", "Dosyalar başarıyla Masaüstünde oluşturuldu"
@@ -118,8 +119,8 @@ class NamesComponent:
             self.get_ogretmen(),
             self.get_sube(),
             self.get_ders(),
-            self.get_donem(),
             self.get_yil(),
+            self.get_donem(),
         ]
 
     def get_okul(self):
@@ -137,11 +138,11 @@ class NamesComponent:
     def get_ders(self):
         return self.ders_tf.get()
 
-    def get_donem(self):
-        return self.donem_tf.get()
-
     def get_yil(self):
         return self.yil_tf.get()
+
+    def get_donem(self):
+        return self.donem_tf.get()
 
 
 class TextField(Frame):
@@ -159,6 +160,7 @@ class TextField(Frame):
         width=200,
         x=0,
         y=0,
+        textval="",
     ):
         super().__init__(root)
         self.frame = Frame(root, background=background)
@@ -176,7 +178,7 @@ class TextField(Frame):
         )
         self.label.place(x=0, width=100, height=20)
 
-        self.entry = Entry(self.frame)
+        self.entry = Entry(self.frame, textvariable=textval)
         self.entry.place(x=100, width=100, height=20)
 
     def get(self):
