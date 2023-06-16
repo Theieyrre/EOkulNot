@@ -5,7 +5,6 @@ import random
 
 class DataTable:
     def __init__(self, data):
-        # TODO change index column to Okul No and update random indexing
         self.eokul_columns = [
             "Okul No",
             "Adı Soyadı",
@@ -27,16 +26,10 @@ class DataTable:
         self.main_df = pd.read_csv(data_io, sep="\t", header=None)
         self.main_df.columns = self.eokul_columns
 
-    def fill_sub_df(self, main_column, filename) -> pd.DataFrame:
-        # TODO spread remainder value to columns
+    def fill_sub_df(self, main_column, grade_columns) -> pd.DataFrame:
         columns = self.columns.copy()
         columns.append(main_column)
         temp_df = self.main_df[columns]
-
-        grade_columns = []
-        with open(filename, "r", encoding="utf-8") as f:
-            for line in f:
-                grade_columns.append(line.replace("\n", ""))
 
         temp_df = temp_df.reindex(columns=temp_df.columns.tolist() + grade_columns)
 

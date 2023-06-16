@@ -3,3 +3,6 @@
 
 #Python
 /kod/__pycache__
+
+#Outputs
+*.xlsx

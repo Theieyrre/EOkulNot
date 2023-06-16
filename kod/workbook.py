@@ -4,11 +4,11 @@ import pandas as pd
 
 
 class ExcelWriter:
-    def __init__(self, df):
+    def __init__(self, columns):
         self.wb = Workbook()
         self.ws = self.wb.active
 
-        size = len(df.columns)
+        size = len(columns)
 
         # Yıl Okul row
         self.ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=size + 3)
@@ -72,6 +72,10 @@ class ExcelWriter:
 
         self.ws["B4"].alignment = Alignment(horizontal="center")
         self.ws["B5"].alignment = Alignment(horizontal="center")
+
+    def add_dataframe(self, df):
+        # TODO add rows from df
+        pass
 
     def save(self, filename="taslak.xlsx"):
         self.wb.save(filename)

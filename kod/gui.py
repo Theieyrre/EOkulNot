@@ -30,18 +30,36 @@ class GUI:
     def create_files(self):
         data = self.eokul_component.get_data()
         self.dt = DataTable(data)
-        temp = self.dt.fill_sub_df("1.Proje", "./veri/proje_kriterler.txt")
-        ew = ExcelWriter(temp)
-        ew.save()
-        self.dt.write_excel(temp, "1.Proje.xlsx")
-        temp = self.dt.fill_sub_df("1.Ders Et.Kat", "./veri/dersici_kriterler.txt")
-        self.dt.write_excel(temp, "1.Ders Et.Kat.xlsx")
-        temp = self.dt.fill_sub_df("2.Ders Et.Kat", "./veri/dersici_kriterler.txt")
-        self.dt.write_excel(temp, "2.Ders Et.Kat.xlsx")
-        temp = self.dt.fill_sub_df("3.Ders Et.Kat", "./veri/dersici_kriterler.txt")
-        self.dt.write_excel(temp, "3.Ders Et.Kat.xlsx")
+        proje_columns = self.read_criterias("./veri/proje_kriterler.txt")
+        dersici_columns = self.read_criterias("./veri/dersici_kriterler.txt")
+        temp = self.dt.fill_sub_df("1.Proje", proje_columns)
+        ew = ExcelWriter(proje_columns)
+        ew.add_dataframe(temp)
+        ew.save("1.Proje.xlsx")
+        # self.dt.write_excel(temp, "1.Proje.xlsx")
+        temp = self.dt.fill_sub_df("1.Ders Et.Kat", dersici_columns)
+        ew = ExcelWriter(dersici_columns)
+        ew.add_dataframe(temp)
+        ew.save("1.Proje.xlsx")
+        # self.dt.write_excel(temp, "1.Ders Et.Kat.xlsx")
+        temp = self.dt.fill_sub_df("2.Ders Et.Kat", dersici_columns)
+        ew.add_dataframe(temp)
+        ew.save("1.Proje.xlsx")
+        # self.dt.write_excel(temp, "2.Ders Et.Kat.xlsx")
+        temp = self.dt.fill_sub_df("3.Ders Et.Kat", dersici_columns)
+        ew.add_dataframe(temp)
+        ew.save("1.Proje.xlsx")
+        # self.dt.write_excel(temp, "3.Ders Et.Kat.xlsx")
 
         exit()
+
+    def read_criterias(self, filename) -> list:
+        grade_columns = []
+        with open(filename, "r", encoding="utf-8") as f:
+            for line in f:
+                grade_columns.append(line.replace("\n", ""))
+
+        return grade_columns
 
 
 class EOkulComponent:
