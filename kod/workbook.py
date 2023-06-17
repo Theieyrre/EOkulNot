@@ -5,8 +5,7 @@ from openpyxl.styles import Font
 
 
 class ExcelWriter:
-    # TODO bold and bigger font
-    # TODO add grade specific columns
+    # TODO add pdf writer
     def __init__(self, col, columns, metadata):
         self.wb = Workbook()
         self.ws = self.wb.active

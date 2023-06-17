@@ -6,7 +6,8 @@ import os
 
 
 class App:
-    # TODO add if possible pdf output
+    # TODO seperate generate button pdf and excel
+    # TODO update width to better view long names
     def __init__(self, size="300x500", height=500, width=300):
         self.root = Tk()
         self.root.eval("tk::PlaceWindow . center")
@@ -25,7 +26,6 @@ class App:
         button.place(x=55, y=370, height=25, width=195)
 
     def run(self):
-        # TODO add check buttons for different file formats (if possible)
         self.root.mainloop()
 
     def create_files(self):
