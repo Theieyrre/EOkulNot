@@ -6,3 +6,13 @@
 
 #Outputs
 *.xlsx
+
+#Virtual Env
+eokulnot/
+
+#Build Files
+build/
+dist/
+
+main.spec
+*.ico
