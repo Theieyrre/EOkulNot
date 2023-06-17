@@ -1,7 +1,7 @@
 from openpyxl import Workbook
 from openpyxl.styles.alignment import Alignment
 from openpyxl.styles.borders import Border, Side
-import pandas as pd
+from openpyxl.styles import Font
 
 
 class ExcelWriter:
@@ -13,11 +13,15 @@ class ExcelWriter:
 
         size = len(columns)
 
+        for row in self.ws.iter_rows():
+            for cell in row:
+                cell.font = Font(bold=True)
+
         # Yıl Okul row
-        self.ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=size + 3)
+        self.ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=size + 4)
 
         # Ders Not tipi row
-        self.ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=size + 3)
+        self.ws.merge_cells(start_row=2, start_column=1, end_row=2, end_column=size + 4)
 
         # Sınıf label
         self.ws.merge_cells(start_row=3, start_column=1, end_row=5, end_column=1)
@@ -38,8 +42,10 @@ class ExcelWriter:
                 start_row=5, start_column=4 + i, end_row=15, end_column=4 + i
             )
             self.ws.cell(5, 4 + i).alignment = Alignment(
-                text_rotation=90, vertical="center", horizontal="center"
+                text_rotation=90, vertical="center", horizontal="center", wrap_text=True
             )
+            self.ws.cell(5, 4 + i).font = Font(size=9)
+            self.ws.cell(5, 4 + i).value = columns[i]
 
         self.ws.merge_cells(
             start_row=3, start_column=size + 4, end_row=15, end_column=size + 4
@@ -48,11 +54,6 @@ class ExcelWriter:
         self.ws.cell(3, size + 4).alignment = Alignment(
             text_rotation=90, vertical="center", horizontal="center"
         )
-
-        self.ws["A3"] = "SINIF"
-        self.ws["A6"] = "ÖLÇÜTLER"
-        self.ws["B5"] = "SINIFI"
-        self.ws["D3"] = "Öğrencide Gözlenecek kazanımlar"
 
         for i in range(5):
             self.ws["B" + str(i + 8)] = i + 1
@@ -73,15 +74,26 @@ class ExcelWriter:
         self.ws["A3"].alignment = Alignment(
             text_rotation=90, vertical="center", horizontal="center"
         )
+        self.ws["A3"] = "SINIF"
+        self.ws["A3"].font = Font(size=16, bold=True)
+
+        self.ws["A6"] = "ÖLÇÜTLER"
         self.ws["A6"].alignment = Alignment(
             text_rotation=90, vertical="center", horizontal="center"
         )
+        self.ws["A6"].font = Font(size=18, bold=True)
 
         self.ws["D3"].alignment = Alignment(horizontal="center")
-        self.ws["D4"].alignment = Alignment(horizontal="center")
+        self.ws["D3"] = "Öğrencide Gözlenecek kazanımlar"
+        self.ws["D3"].font = Font(size=18, bold=True)
+
+        self.ws["B3"].alignment = Alignment(horizontal="center")
+        self.ws["B3"].font = Font(size=18, bold=True)
+        self.ws["B3"] = metadata[3]
 
         self.ws["B4"].alignment = Alignment(horizontal="center")
         self.ws["B5"].alignment = Alignment(horizontal="center")
+        self.ws["B5"] = "SINIFI"
 
         self.ws["A1"] = metadata[5] + " EĞİTİM ÖĞRETİM YILI " + metadata[0]
         self.ws["A2"] = (
@@ -92,9 +104,9 @@ class ExcelWriter:
             + col.upper()
             + " NOTU DEĞERLENDİRME ÖLÇEĞİ"
         )
-        self.ws["B3"] = metadata[3]
 
         self.ws.cell(3, size + 4).value = col.upper() + " PUANI"
+        self.ws.cell(3, size + 4).font = Font(size=18, bold=True)
 
     def add_borders(self, style):
         border = Border(

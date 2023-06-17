@@ -131,25 +131,25 @@ class NamesComponent:
         ]
 
     def get_okul(self):
-        return self.okul_tf.get()
+        return self.okul_tf.get().upper()
 
     def get_mudur(self):
-        return self.mudur_tf.get()
+        return self.mudur_tf.get().upper()
 
     def get_ogretmen(self):
-        return self.ogretmen_tf.get()
+        return self.ogretmen_tf.get().upper()
 
     def get_sube(self):
-        return self.sube_tf.get()
+        return self.sube_tf.get().upper()
 
     def get_ders(self):
-        return self.ders_tf.get()
+        return self.ders_tf.get().upper()
 
     def get_yil(self):
-        return self.yil_tf.get()
+        return self.yil_tf.get().upper()
 
     def get_donem(self):
-        return self.donem_tf.get()
+        return self.donem_tf.get().upper()
 
 
 class TextField(Frame):
