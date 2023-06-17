@@ -1,5 +1,6 @@
 from openpyxl import Workbook
 from openpyxl.styles.alignment import Alignment
+from openpyxl.styles.borders import Border, Side
 import pandas as pd
 
 
@@ -95,10 +96,34 @@ class ExcelWriter:
 
         self.ws.cell(3, size + 4).value = col.upper() + " PUANI"
 
+    def add_borders(self, style):
+        border = Border(
+            left=Side(style=style),
+            right=Side(style=style),
+            top=Side(style=style),
+            bottom=Side(style=style),
+        )
+
+        for row in self.ws.iter_rows():
+            for cell in row:
+                cell.border = border
+
     def add_dataframe(self, df):
         data = df.values.tolist()
         for row in data:
             self.ws.append(row)
+        self.add_borders("thin")
+        self.fit_names()
+
+    def fit_names(self):
+        names = []
+        for cell in self.ws["C"]:
+            value = cell.value
+            if value != None:
+                names.append(cell.value)
+        max_length = len(max(names, key=len))
+        adjusted_width = (max_length + 2) * 1.2
+        self.ws.column_dimensions["C"].width = adjusted_width
 
     def save(self, filename="taslak.xlsx"):
         self.wb.save(filename)
