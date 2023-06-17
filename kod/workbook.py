@@ -13,10 +13,6 @@ class ExcelWriter:
 
         size = len(columns)
 
-        for row in self.ws.iter_rows():
-            for cell in row:
-                cell.font = Font(bold=True)
-
         # Yıl Okul row
         self.ws.merge_cells(start_row=1, start_column=1, end_row=1, end_column=size + 4)
 
@@ -44,7 +40,7 @@ class ExcelWriter:
             self.ws.cell(5, 4 + i).alignment = Alignment(
                 text_rotation=90, vertical="center", horizontal="center", wrap_text=True
             )
-            self.ws.cell(5, 4 + i).font = Font(size=9)
+            self.ws.cell(5, 4 + i).font = Font(size=10)
             self.ws.cell(5, 4 + i).value = columns[i]
 
         self.ws.merge_cells(
@@ -65,8 +61,11 @@ class ExcelWriter:
         self.ws["C12"] = "ÇOK İYİ"
 
         self.ws["A15"] = "SIRA"
+        self.ws["A15"].font = Font(bold=True)
         self.ws["B15"] = "NO"
+        self.ws["B15"].font = Font(bold=True)
         self.ws["C15"] = "ADI SOYADI"
+        self.ws["C15"].font = Font(bold=True)
 
         self.ws["A1"].alignment = Alignment(horizontal="center")
         self.ws["A2"].alignment = Alignment(horizontal="center")
@@ -94,6 +93,7 @@ class ExcelWriter:
         self.ws["B4"].alignment = Alignment(horizontal="center")
         self.ws["B5"].alignment = Alignment(horizontal="center")
         self.ws["B5"] = "SINIFI"
+        self.ws["b5"].font = Font(bold=True)
 
         self.ws["A1"] = metadata[5] + " EĞİTİM ÖĞRETİM YILI " + metadata[0]
         self.ws["A2"] = (
@@ -104,6 +104,8 @@ class ExcelWriter:
             + col.upper()
             + " NOTU DEĞERLENDİRME ÖLÇEĞİ"
         )
+        self.ws["A1"].font = Font(bold=True)
+        self.ws["A2"].font = Font(bold=True)
 
         self.ws.cell(3, size + 4).value = col.upper() + " PUANI"
         self.ws.cell(3, size + 4).font = Font(size=18, bold=True)
@@ -136,6 +138,17 @@ class ExcelWriter:
         max_length = len(max(names, key=len))
         adjusted_width = (max_length + 2) * 1.2
         self.ws.column_dimensions["C"].width = adjusted_width
+
+    def add_names(self, teacher, principal, subject):
+        max_r = self.ws.max_row
+        max_c = self.ws.max_column
+        self.ws.cell(max_r + 5, 3).value = teacher
+        self.ws.cell(max_r + 6, 3).value = subject + " ÖĞRETMENİ"
+        self.ws.cell(max_r + 6, 3).font = Font(bold=True)
+
+        self.ws.cell(max_r + 5, max_c - 3).value = principal
+        self.ws.cell(max_r + 6, max_c - 3).value = "OKUL MÜDÜRÜ"
+        self.ws.cell(max_r + 6, max_c - 3).font = Font(bold=True)
 
     def save(self, filename="taslak.xlsx"):
         self.wb.save(filename)

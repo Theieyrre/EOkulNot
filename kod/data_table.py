@@ -59,6 +59,3 @@ class DataTable:
 
         temp_df["Sıra"] = range(1, len(temp_df["Okul No"]) + 1)
         return temp_df
-
-    def write_excel(self, df, filename):
-        df.to_excel(filename)

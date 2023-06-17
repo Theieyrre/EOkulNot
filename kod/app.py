@@ -58,6 +58,7 @@ class App:
         temp = self.dt.fill_sub_df(col, columns)
         ew = ExcelWriter(col, columns, self.names)
         ew.add_dataframe(temp)
+        ew.add_names(self.names[2], self.names[1], self.names[4])
         ew.save(filename)
 
     def read_criterias(self, filename) -> list:
