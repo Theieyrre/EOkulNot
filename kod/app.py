@@ -6,8 +6,6 @@ import os
 
 
 class App:
-    # TODO seperate generate button pdf and excel
-    # TODO update width to better view long names
     def __init__(self, size="300x500", height=500, width=300):
         self.root = Tk()
         self.root.eval("tk::PlaceWindow . center")
