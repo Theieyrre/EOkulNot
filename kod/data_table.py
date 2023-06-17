@@ -31,7 +31,9 @@ class DataTable:
         columns.append(main_column)
         temp_df = self.main_df[columns]
 
-        temp_df = temp_df.reindex(columns=temp_df.columns.tolist() + grade_columns)
+        temp_df = temp_df.reindex(
+            columns=["Sıra"] + temp_df.columns.tolist() + grade_columns
+        )
 
         for column in grade_columns:
             temp_df[column] = temp_df[main_column] // len(grade_columns)
@@ -49,7 +51,13 @@ class DataTable:
                 g_columns.remove(g_columns[idx])
 
         temp_df = temp_df.drop(columns=["Kalan Not"])
-        temp_df = temp_df.set_index("Okul No")
+
+        col_list = list(temp_df.columns)
+        x, y = col_list.index(main_column), col_list.index(grade_columns[-1])
+        col_list[y], col_list[x] = col_list[x], col_list[y]
+        temp_df = temp_df[col_list]
+
+        temp_df["Sıra"] = range(1, len(temp_df["Okul No"]) + 1)
         return temp_df
 
     def write_excel(self, df, filename):

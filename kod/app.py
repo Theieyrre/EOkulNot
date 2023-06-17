@@ -7,7 +7,6 @@ import os
 
 class App:
     # TODO add if possible pdf output
-    # TODO add destination dropdown list
     def __init__(self, size="300x500", height=500, width=300):
         self.root = Tk()
         self.root.eval("tk::PlaceWindow . center")

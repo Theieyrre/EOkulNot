@@ -96,8 +96,9 @@ class ExcelWriter:
         self.ws.cell(3, size + 4).value = col.upper() + " PUANI"
 
     def add_dataframe(self, df):
-        # TODO add rows from df
-        pass
+        data = df.values.tolist()
+        for row in data:
+            self.ws.append(row)
 
     def save(self, filename="taslak.xlsx"):
         self.wb.save(filename)
