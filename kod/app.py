@@ -35,10 +35,18 @@ class App:
         proje_columns = self.read_criterias("./veri/proje_kriterler.txt")
         dersici_columns = self.read_criterias("./veri/dersici_kriterler.txt")
 
-        self.create_file("1.Proje", proje_columns, "1.Proje.xlsx")
-        self.create_file("1.Ders Et.Kat", dersici_columns, "1. Ders Et.Kat.xlsx")
-        self.create_file("2.Ders Et.Kat", dersici_columns, "2. Ders Et.Kat.xlsx")
-        self.create_file("3.Ders Et.Kat", dersici_columns, "3. Ders Et.Kat.xlsx")
+        sinif = self.names_component.get_sube()
+
+        self.create_file("1.Proje", proje_columns, sinif + " 1.Proje.xlsx")
+        self.create_file(
+            "1.Ders Et.Kat", dersici_columns, sinif + " 1. Ders Et.Kat.xlsx"
+        )
+        self.create_file(
+            "2.Ders Et.Kat", dersici_columns, sinif + " 2. Ders Et.Kat.xlsx"
+        )
+        self.create_file(
+            "3.Ders Et.Kat", dersici_columns, sinif + " 3. Ders Et.Kat.xlsx"
+        )
 
         messagebox.showinfo(
             "E-Okul Not Dağılımı", "Dosyalar başarıyla Masaüstünde oluşturuldu"

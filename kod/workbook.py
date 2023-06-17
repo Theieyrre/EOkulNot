@@ -5,7 +5,7 @@ import pandas as pd
 
 
 class ExcelWriter:
-    # TODO add borders
+    # TODO bold and bigger font
     # TODO add grade specific columns
     def __init__(self, col, columns, metadata):
         self.wb = Workbook()
