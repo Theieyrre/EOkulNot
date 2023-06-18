@@ -2,6 +2,8 @@ import pandas as pd
 from io import StringIO
 import random
 
+# TODO remove pandas and implement methods
+
 
 class DataTable:
     def __init__(self, data):

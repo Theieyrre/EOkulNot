@@ -30,8 +30,8 @@ class App:
         self.names = self.names_component.get_data()
         data = self.eokul_component.get_data()
         self.dt = DataTable(data)
-        proje_columns = self.read_criterias("./veri/proje_kriterler.txt")
-        dersici_columns = self.read_criterias("./veri/dersici_kriterler.txt")
+        proje_columns = self.create_columns("proje")
+        dersici_columns = self.create_columns("dersici")
 
         sinif = self.names_component.get_sube()
 
@@ -59,13 +59,55 @@ class App:
         ew.add_names(self.names[2], self.names[1], self.names[4])
         ew.save(filename)
 
-    def read_criterias(self, filename) -> list:
-        grade_columns = []
-        with open(filename, "r", encoding="utf-8") as f:
-            for line in f:
-                grade_columns.append(line.replace("\n", ""))
-
-        return grade_columns
+    def create_columns(self, type) -> list:
+        if type == "proje":
+            return [
+                "Projenin amacını belirleme",
+                "Projenin amacına uygun çalışma planı yapma",
+                "Farklı kaynaklardan bilgi toplama",
+                "Hazırlamaya istekli oluş",
+                "Projeyi plana göre gerçekleştirme",
+                "Türkçe'yi doğru ve düzgün kullanma",
+                "Gösterilen özen,temizlik,tertip ve düzen",
+                "Bilgilerin doğruluğu",
+                "Toplanan bilgileri düzenleme",
+                "Toplanan bilgileri analiz etme",
+                "Elde edilen bilgilerden çıkarımda bulunma",
+                "Amaca ve hedeflere uygun tasarım",
+                "Yaratıcılık yeteneğini kullanma",
+                "Kritik düşünme becerisini kullanma",
+                "Çalışma raporu hazırlama",
+                "Türkçe'yi doğru ve düzgün konuşma",
+                "Konu ile ilgili kavramları anlama ve anlatma",
+                "Akıcı bir dil ve beden dilini kullanma",
+                "Ödevin zamanında teslim edilmesi",
+                "Sunum sırasında özgüvene sahip olma",
+            ]
+        elif type == "dersici":
+            return [
+                "Kaynak bilgisi sorgulama",
+                "Bilgi kaynaklarını kendisi bulur",
+                "Bilgiyi nereden edineceğini bildiğini söyler",
+                "Derse değişik yardımcı kaynaklarla gelir",
+                "Derse hazırlıklı gelir",
+                "Kendiliğinden söz alarak görüşünü söyler",
+                "Kendisine görüşü sorulduğunda konuşur",
+                "Belirttiği görüş ve verdiği örnekler özgündür",
+                "Yeni ve özgün sorular sorar",
+                "Dersi dinlediğini gösteren özgün sorular sorar",
+                "Bilgi toplamak için çeşitli kaynaklara başvurur",
+                "Verilenden farklı kaynakları da araştırır",
+                "İnceleme ve araştırma ödevlerini özenir",
+                "Gözlemlerinde mantıklı çıkarımlarda bulunur",
+                "Araştırma-İncelemelerde genellemeler yapar",
+                "Verilenlerden grafik ve çizelgeler oluşturur",
+                "Yönteme uygun deney yapar",
+                "Derslere zamanında girer",
+                "Dersin akışını bozmaz",
+                "Ödevlerini zamanında hazırlayarak sunar",
+            ]
+        else:
+            return []
 
 
 class EOkulComponent:

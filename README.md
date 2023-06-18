@@ -1,6 +1,7 @@
 # EOkulNot
 
-![badge](https://img.shields.io/static/v1?label=DURUM&message=ÇALIŞIYOR&color=green&style=for-the-badge&logo=appveyor)
+![badge](https://img.shields.io/static/v1?label=KOD&message=ÇALIŞIYOR&color=green&style=for-the-badge&logo=appveyor)
+![badge](https://img.shields.io/static/v1?label=UYGULAMA&message=ÇALIŞMIYOR&color=red&style=for-the-badge&logo=appveyor)
 
 E-Okul not verisini girilen kriterlere göre dağıtma uygulaması
 

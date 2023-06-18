@@ -4,6 +4,9 @@
 #Python
 /kod/__pycache__
 
+#Inputs
+data.txt
+
 #Outputs
 *.xlsx
 
