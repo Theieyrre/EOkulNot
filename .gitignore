@@ -11,6 +11,7 @@
 eokulnot/
 
 #Build Files
+upx-4.0.2-win64
 build/
 dist/
 
