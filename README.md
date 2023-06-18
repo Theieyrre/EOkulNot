@@ -5,7 +5,7 @@
 
 E-Okul not verisini girilen kriterlere göre dağıtma uygulaması
 
-![link](https://github.com/Theieyrre/EOkulNot/releases/download/v1.0.1/EOkulNot.exe)
+https://github.com/Theieyrre/EOkulNot/releases/download/v1.0.1/EOkulNot.exe
 
 ## Kullanış
 
